@@ -46,6 +46,17 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') lightbox.classList.remove('open');
 });
 
+// Touch swipe for mobile
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+lightbox.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) document.getElementById('lbNext').click();
+    else document.getElementById('lbPrev').click();
+  }
+});
+
 
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
