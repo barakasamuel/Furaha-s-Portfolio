@@ -17,9 +17,9 @@ const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 let galleryImgs = [], lbIndex = 0;
 
-document.querySelectorAll('.project-gallery img').forEach(img => {
+document.querySelectorAll('.project-collage img').forEach(img => {
   img.addEventListener('click', () => {
-    galleryImgs = Array.from(img.closest('.project-gallery').querySelectorAll('img'));
+    galleryImgs = Array.from(img.closest('.project-collage').querySelectorAll('img'));
     lbIndex = galleryImgs.indexOf(img);
     lbImg.src = galleryImgs[lbIndex].src;
     lightbox.classList.add('open');
