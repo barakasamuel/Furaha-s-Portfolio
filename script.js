@@ -12,6 +12,42 @@ themeToggle.addEventListener('click', () => {
   themeToggle.querySelector('i').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });
 
+// Carousel
+document.querySelectorAll('.carousel').forEach(carousel => {
+  const track = carousel.querySelector('.car-track');
+  const imgs = track.querySelectorAll('img');
+  const dotsContainer = carousel.querySelector('.car-dots');
+  let current = 0, autoSlide;
+
+  // Create dots
+  imgs.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    current = (index + imgs.length) % imgs.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsContainer.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  carousel.querySelector('.car-prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  carousel.querySelector('.car-next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+  function resetAuto() { clearInterval(autoSlide); autoSlide = setInterval(() => goTo(current + 1), 3500); }
+  resetAuto();
+
+  // Swipe support
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? goTo(current + 1) : goTo(current - 1); resetAuto(); }
+  });
+});
+
 // Lightbox
 const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
@@ -28,6 +64,7 @@ document.querySelectorAll('.view-photos-btn').forEach(btn => {
 
 document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('open'));
 lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+lightbox.addEventListener('touchend', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
 
 document.getElementById('lbPrev').addEventListener('click', () => {
   lbIndex = (lbIndex - 1 + galleryImgs.length) % galleryImgs.length;

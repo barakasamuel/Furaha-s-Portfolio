@@ -475,22 +475,14 @@ section:nth-child(even) { background: var(--bg-alt); }
 }
 .project-links a:hover { opacity: 0.7; }
 
-.project-gallery {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.project-gallery img {
+.view-photos-btn {
   width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 14px;
+  font-size: 1rem;
+  touch-action: manipulation;
 }
-.project-gallery img:hover { transform: scale(1.03); }
 
 /* CONTACT */
 .contact-sub { color: var(--text-light); margin-top: -36px; margin-bottom: 48px; }
@@ -583,6 +575,64 @@ section:nth-child(even) { background: var(--bg-alt); }
   .collage-grid img { height: 90px; }
 }
 
+/* CAROUSEL */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.car-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.car-track img {
+  min-width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.car-prev, .car-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.45);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s;
+}
+.car-prev:hover, .car-next:hover { background: rgba(0,0,0,0.7); }
+.car-prev { left: 10px; }
+.car-next { right: 10px; }
+
+.car-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.car-dots span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.car-dots span.active { background: #fff; }
+
 /* LIGHTBOX */
 .lightbox {
   visibility: hidden;
@@ -613,9 +663,11 @@ section:nth-child(even) { background: var(--bg-alt); }
   font-size: 1.3rem;
   cursor: pointer;
   border-radius: 50%;
-  width: 44px; height: 44px;
+  width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
   transition: background 0.2s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .lb-close:hover, .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.25); }
 .lb-close { top: 20px; right: 20px; }
