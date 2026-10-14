@@ -17,11 +17,11 @@ const lightbox = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 let galleryImgs = [], lbIndex = 0;
 
-document.querySelectorAll('.project-collage img').forEach(img => {
-  img.addEventListener('click', () => {
-    galleryImgs = Array.from(img.closest('.project-collage').querySelectorAll('img'));
-    lbIndex = galleryImgs.indexOf(img);
-    lbImg.src = galleryImgs[lbIndex].src;
+document.querySelectorAll('.view-photos-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    galleryImgs = btn.getAttribute('data-images').split(',').map(src => ({ src: src.trim() }));
+    lbIndex = 0;
+    lbImg.src = galleryImgs[0].src;
     lightbox.classList.add('open');
   });
 });
