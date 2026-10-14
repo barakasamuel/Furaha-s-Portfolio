@@ -60,7 +60,7 @@ img { max-width: 100%; }
   transition: all 0.2s;
   border: none;
 }
-.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary { background: #7c3aed; color: #fff; }
 .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
 .btn-outline {
   background: transparent;
@@ -413,13 +413,20 @@ section:nth-child(even) { background: var(--bg-alt); }
 .project-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--primary); }
 
 .project-img {
-  height: 160px;
+  width: 100%;
   background: var(--primary-light);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
   color: var(--primary);
+  overflow: hidden;
+}
+
+.project-img img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .project-info { padding: 24px; }
@@ -467,6 +474,23 @@ section:nth-child(even) { background: var(--bg-alt); }
   transition: opacity 0.2s;
 }
 .project-links a:hover { opacity: 0.7; }
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.project-gallery img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.project-gallery img:hover { transform: scale(1.03); }
 
 /* CONTACT */
 .contact-sub { color: var(--text-light); margin-top: -36px; margin-bottom: 48px; }
@@ -520,6 +544,42 @@ section:nth-child(even) { background: var(--bg-alt); }
 .contact-form input:focus,
 .contact-form textarea:focus { outline: none; border-color: var(--primary); }
 .form-msg { font-size: 0.9rem; color: #16a34a; text-align: center; }
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.lb-close, .lb-prev, .lb-next {
+  position: absolute;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.lb-close:hover, .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.25); }
+.lb-close { top: 20px; right: 20px; }
+.lb-prev { left: 16px; }
+.lb-next { right: 16px; }
 
 /* FOOTER */
 footer {

@@ -12,7 +12,41 @@ themeToggle.addEventListener('click', () => {
   themeToggle.querySelector('i').className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });
 
-// Navbar scroll effect
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+let galleryImgs = [], lbIndex = 0;
+
+document.querySelectorAll('.project-gallery img').forEach(img => {
+  img.addEventListener('click', () => {
+    galleryImgs = Array.from(img.closest('.project-gallery').querySelectorAll('img'));
+    lbIndex = galleryImgs.indexOf(img);
+    lbImg.src = galleryImgs[lbIndex].src;
+    lightbox.classList.add('open');
+  });
+});
+
+document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('open'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+
+document.getElementById('lbPrev').addEventListener('click', () => {
+  lbIndex = (lbIndex - 1 + galleryImgs.length) % galleryImgs.length;
+  lbImg.src = galleryImgs[lbIndex].src;
+});
+
+document.getElementById('lbNext').addEventListener('click', () => {
+  lbIndex = (lbIndex + 1) % galleryImgs.length;
+  lbImg.src = galleryImgs[lbIndex].src;
+});
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') document.getElementById('lbPrev').click();
+  if (e.key === 'ArrowRight') document.getElementById('lbNext').click();
+  if (e.key === 'Escape') lightbox.classList.remove('open');
+});
+
+
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
