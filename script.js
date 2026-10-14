@@ -33,6 +33,17 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     dotsContainer.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
+  // Click image to open lightbox
+  imgs.forEach((img, i) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      galleryImgs = Array.from(imgs).map(im => ({ src: im.src }));
+      lbIndex = i;
+      lbImg.src = galleryImgs[i].src;
+      lightbox.classList.add('open');
+    });
+  });
+
   carousel.querySelector('.car-prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
   carousel.querySelector('.car-next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
 
